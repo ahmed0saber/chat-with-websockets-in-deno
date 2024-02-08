@@ -1,7 +1,12 @@
 // deno-lint-ignore-file
 const myUsername = prompt("Please enter your name") || "Anonymous";
+
+// Get the protocol (http or https) from the current page's URL
+const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+
+// Construct the WebSocket URL using the current host and the desired path
 const socket = new WebSocket(
-    `ws://localhost:8080/start_web_socket?username=${myUsername}`
+  `${protocol}//${window.location.host}/start_web_socket?username=${myUsername}`
 );
 
 socket.onmessage = (m) => {
